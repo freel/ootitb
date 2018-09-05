@@ -7,5 +7,8 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    //
+    //DashboardController@index
+    public function index(){
+      return view('admin.index');
+    }
 }
