@@ -40,7 +40,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>Разделы</a>
                         <ul class="dropdown-menu">
                           <li>
-                            <a href="#">Редактировать</a>
+                            <a href="{{route('admin.certification_area.index')}}">Области аттестации</a>
                             <a href="#">Добавить</a>
                           </li>
 
