@@ -41,7 +41,7 @@
                         <ul class="dropdown-menu">
                           <li>
                             <a href="{{route('admin.certification_area.index')}}">Области аттестации</a>
-                            <a href="#">Добавить</a>
+                            <a href="{{route('admin.question.index')}}">Вопросы</a>
                           </li>
 
                         </ul>
