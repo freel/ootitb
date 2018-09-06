@@ -44,12 +44,13 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $question = Question::create($request->all());
-        if($request->input('certification_areas')) :
-          $question->certification_areas()->attach($request->input('certification_areas'));
-        endif;
-
-        return redirect()->route('admin.question.index');
+      return dd($request->input());
+        // $question = Question::create($request->all());
+        // if($request->input('certification_areas')) :
+        //   $question->certification_areas()->attach($request->input('certification_areas'));
+        // endif;
+        //
+        // return redirect()->route('admin.question.index');
     }
 
     /**

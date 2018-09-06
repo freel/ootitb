@@ -8,7 +8,11 @@
 
     {{-- Form include --}}
     @include('admin.questions.partials.form')
+
+    @include('admin.questions.partials.answers')
+
   </form>
+
 </div>
 
 @endsection

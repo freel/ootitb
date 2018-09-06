@@ -26,9 +26,6 @@
         <td>{{$question->title}}</td>
         <td>
           {{$question->certification_areas()->pluck('title')->implode(', ')}}
-          @foreach ($question->certification_areas as $area)
-              {{ $area->title }}
-          @endforeach
 
         </td>
         <td>
