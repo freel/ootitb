@@ -16,10 +16,11 @@ class CreateCertificationAreasTable extends Migration
         Schema::create('certification_areas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->unique();
+            $table->string('text');
+            $table->text('description')->nullable();
             $table->integer('parent_id')->nullable();
-            $table->text('description');
             $table->integer('created_by')->nullable();
-            $table->integer('modified_by')->nullable();            
+            $table->integer('modified_by')->nullable();
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CertificationArea extends Model
 {
-    protected $fillable=['title', 'parent_id', 'description', 'create_by', 'modified_by'];
+    protected $fillable=['title', 'text', 'parent_id', 'description', 'create_by', 'modified_by'];
 
     //Области потомки
     public function children(){

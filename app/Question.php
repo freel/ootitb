@@ -12,4 +12,9 @@ class Question extends Model
     public function certification_areas(){
       return $this->belongsToMany('App\CertificationArea');
     }
+
+    //Ответы к вопросу
+    public function answers(){
+      return $this->hasMany('App\Answer');
+    }
 }
