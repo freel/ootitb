@@ -36,7 +36,8 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Answer::create($request->all());
+        // return true;
     }
 
     /**

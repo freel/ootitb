@@ -67,7 +67,11 @@ class CertificationAreaController extends Controller
      */
     public function edit(CertificationArea $certificationArea)
     {
-        //
+        return view('admin.certification_areas.edit', [
+          'certification_area'  => $certificationArea,
+          'certification_areas' => CertificationArea::with('children')->where('parent_id', '0')->get(),
+          'delimiter'           => ''
+        ]);
     }
 
     /**
@@ -79,7 +83,9 @@ class CertificationAreaController extends Controller
      */
     public function update(Request $request, CertificationArea $certificationArea)
     {
-        //
+        $certificationArea->update();
+
+        return redirect()->route('admin.certification_area.index');
     }
 
     /**

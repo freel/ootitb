@@ -29,7 +29,7 @@
 
         </td>
         <td>
-          <a href="{{route('admin.question.edit', ['id'=>$question->id])}}">Редактировать</a>
+          <a href="{{route('admin.question.edit', $question)}}">Редактировать</a>
         </td>
       </tr>
     @empty

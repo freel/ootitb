@@ -24,9 +24,9 @@
       <tr>
         <td>{{$certification_area->id}}</td>
         <td>{{$certification_area->title}}</td>
-        <td>{{$certification_area->description}}</td>
+        <td>{{$certification_area->text}}</td>
         <td>
-          <a href="{{route('admin.certification_area.edit', ['id'=>$certification_area->id])}}">Редактировать</a>
+          <a href="{{route('admin.certification_area.edit', $certification_area)}}">Редактировать</a>
         </td>
       </tr>
     @empty

@@ -15,8 +15,9 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('question_id');
             $table->text('text');
-            $teble->boolean('right');
+            $table->boolean('right');
             $table->timestamps();
         });
     }
