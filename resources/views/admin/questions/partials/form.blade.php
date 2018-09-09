@@ -10,12 +10,12 @@
   <textarea name="text" class="form-control" rows="8" cols="80">@if (isset($question->id)){{$question->text}}@endif</textarea>
 </div>
 <div class="form-group">
-  <label for="certification_areas">Родительская область</label>
-  <select class="form-control" multiple="multiple" name="certification_areas[]">
+  <label for="test_groups">Родительская область</label>
+  <select class="form-control" multiple="multiple" name="test_groups[]">
     <option value="0">-- без родительской области --</option>
 
     {{-- Selector include --}}
-    @include('admin.questions.partials.areas', ['certification_areas' => $certification_areas])
+    @include('admin.questions.partials.areas', ['test_groups' => $test_groups])
 
   </select>
 

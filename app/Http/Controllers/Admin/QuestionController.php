@@ -85,24 +85,8 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-      // return CertificationArea::with('children')->where('id', '7');
-      // return dd($question->certification_areas()->with('children')->get());
-      // return ($question->certification_areas()->get()->contains(CertificationArea::with('children')->where('id', '7')->first()) ? 'true' : 'false');
       $certification_areas = CertificationArea::with('children')->where('parent_id', '0')->get();
 
-      // $ret='';
-      //
-      // // return get_class($question->certification_areas());
-      //
-      //
-      // foreach ($certification_areas as $certification_area_list) {
-      //   // dd($certification_area_list);
-      //   if ($question->certification_areas()->get()->contains($certification_area_list))
-      //   // if ($question->certification_areas()->get()->contains(CertificationArea::with('children')->where('id', '7')->first()))
-      //     $ret = $ret + '11' ;
-      // }
-      //
-      // return $ret;
       return view('admin.questions.edit', [
         'question'            => $question,
         'areas'               => $question->certification_areas()->get(),

@@ -25,7 +25,7 @@
         <td>{{$question->id}}</td>
         <td>{{$question->title}}</td>
         <td>
-          {{$question->certification_areas()->pluck('title')->implode(', ')}}
+          {{$question->test_groups()->pluck('title')->implode(', ')}}
 
         </td>
         <td>

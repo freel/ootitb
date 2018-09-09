@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCertificationAreasTable extends Migration
+class CreateTestGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCertificationAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('certification_areas', function (Blueprint $table) {
+        Schema::create('test_groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title')->unique();
-            $table->string('text');
+            $table->string('title');
+            $table->string('description_short')->nullable();
             $table->text('description')->nullable();
             $table->integer('parent_id')->nullable();
             $table->integer('created_by')->nullable();
@@ -32,6 +32,6 @@ class CreateCertificationAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certification_areas');
+        Schema::dropIfExists('test_groups');
     }
 }

@@ -1,8 +1,11 @@
 @foreach ($test_groups as $test_group_list)
   <option value="{{ $test_group_list->id or ""}}"
-    @isset($areas)
-      @if ($areas->contains($test_group_list))
-        selected
+    @isset($test_group->id)
+      @if ($test_group->parent_id == $test_group_list->id )
+        selected=""
+      @endif
+      @if ($test_group->id == $test_group_list->id )
+        hidden=""
       @endif
     @endisset
   >
@@ -11,7 +14,7 @@
 
   @if (count($test_group_list->children) > 0)
 
-    @include('admin.questions.partials.areas', [
+    @include('admin.test_groups.partials.parents', [
       'test_groups' => $test_group_list->children,
       'delimiter'           => ' - '.$delimiter
     ])
