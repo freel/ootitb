@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\CertificationArea;
+use App\TestGroup;
 
 class QuestionController extends Controller
 {
@@ -30,9 +30,9 @@ class QuestionController extends Controller
     {
 
         return view('admin.questions.create', [
-          'question'            => [],
-          'certification_areas' => CertificationArea::with('children')->where('parent_id', '0')->get(),
-          'delimiter'           => ''
+          'question'    => [],
+          'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
+          'delimiter'   => ''
         ]);
     }
 
@@ -46,11 +46,11 @@ class QuestionController extends Controller
     {
       // return dd($request->input('answers'));
         $question = Question::create($request->all());
-        // return dd($question->certification_areas());
+        // return dd($question->test_groups());
 
         //Есть привязка к областям проверки
-        if($request->input('certification_areas')) :
-          $question->certification_areas()->attach($request->input('certification_areas'));
+        if($request->input('test_groups')) :
+          $question->test_groups()->attach($request->input('test_groups'));
         endif;
 
         //Есть ответы
@@ -85,14 +85,14 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-      $certification_areas = CertificationArea::with('children')->where('parent_id', '0')->get();
+      $test_groups = TestGroup::with('children')->where('parent_id', '0')->get();
 
       return view('admin.questions.edit', [
-        'question'            => $question,
-        'areas'               => $question->certification_areas()->get(),
-        'answers'             => $question->answers()->get(),
-        'certification_areas' => $certification_areas,
-        'delimiter'           => ''
+        'question'    => $question,
+        'areas'       => $question->test_groups()->get(),
+        'answers'     => $question->answers()->get(),
+        'test_groups' => $test_groups,
+        'delimiter'   => ''
       ]);
     }
 
@@ -106,8 +106,8 @@ class QuestionController extends Controller
     public function update(Request $request, Question $question)
     {
         $question = Question::create($request->all());
-        if($request->input('certification_areas')) :
-          $question->certification_areas()->attach($request->input('certification_areas'));
+        if($request->input('test_groups')) :
+          $question->test_groups()->attach($request->input('test_groups'));
         endif;
 
         return redirect()->route('admin.question.index');

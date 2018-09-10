@@ -42,6 +42,7 @@
                           <li>
                             <a href="{{route('admin.test_group.index')}}">Группы</a>
                             <a href="{{route('admin.question.index')}}">Вопросы</a>
+                            <a href="{{route('admin.user_management.user.index')}}">Пользователи</a>
                           </li>
 
                         </ul>
