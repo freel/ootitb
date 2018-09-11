@@ -11,18 +11,21 @@
 |
 */
 
+Route::resource('/', 'TestController');
+
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
   Route::get('/', 'DashboardController@index')->name('admin.index');
   Route::resource('/test_group', 'TestGroupController', ['as'=>'admin']);
   Route::resource('/question', 'QuestionController', ['as'=>'admin']);
   Route::group(['prefix'=>'user_management', 'namespace'=>'UserManagement'], function(){
     Route::resource('/user', 'UserController', ['as'=>'admin.user_management']);
+    Route::resource('/profession', 'ProfessionController', ['as'=>'admin.user_management']);
   });
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 

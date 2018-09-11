@@ -105,9 +105,21 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        $question = Question::create($request->all());
+        $question->update($request->all());
+
+        //Отцепляем группы и прицепляем после изменений
+        $question->test_groups()->detach();
         if($request->input('test_groups')) :
           $question->test_groups()->attach($request->input('test_groups'));
+        endif;
+
+        //Работаем с ответами
+        $question->answers()->delete();
+        if($request->input('answers')) :
+          foreach ($request->input('answers') as $key=>$answer) {
+            $answers[]=['text'=>$answer, 'right'=>in_array($key, $request->input('right')) ];
+          }
+          $question->answers()->createMany($answers);
         endif;
 
         return redirect()->route('admin.question.index');

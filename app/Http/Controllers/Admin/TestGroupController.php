@@ -68,7 +68,7 @@ class TestGroupController extends Controller
       return view('admin.test_groups.edit', [
         'test_group'  => $testGroup,
         'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
-        'delimiter'           => ''
+        'delimiter'   => ''
       ]);
     }
 
@@ -81,7 +81,7 @@ class TestGroupController extends Controller
      */
     public function update(Request $request, TestGroup $testGroup)
     {
-      $testGroup->update();
+      $testGroup->update($request->all());
       return redirect()->route('admin.test_group.index');
     }
 

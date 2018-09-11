@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\UserManagement;
+namespace App\Http\Controllers;
 
-use App\User;
+use App\Profession;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class ProfessionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user_management.users.index', [
-          'users' => User::paginate(10),
-        ]);
+        //
     }
 
     /**
@@ -27,9 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user_management.user.create', [
-          'user' => [],
-        ]);
+        //
     }
 
     /**
@@ -40,17 +35,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        return redirect()->route('admin.user_management.user.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Profession $profession)
     {
         //
     }
@@ -58,10 +52,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Profession $profession)
     {
         //
     }
@@ -70,10 +64,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Profession $profession)
     {
         //
     }
@@ -81,10 +75,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Profession $profession)
     {
         //
     }

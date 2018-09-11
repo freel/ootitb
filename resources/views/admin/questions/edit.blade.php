@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-  <form class="" action="{{route('admin.question.store', $question)}}" method="post">
+  <form class="" action="{{route('admin.question.update', $question)}}" method="post">
     {{csrf_field()}}
     {{method_field('PUT')}}
 

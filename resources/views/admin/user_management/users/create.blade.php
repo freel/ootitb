@@ -4,9 +4,9 @@
 
 <div class="container">
   @component('admin.components.breadcrumb')
-    @slot('title') Группы @endslot
+    @slot('title') Редактирование Пользователя @endslot
     @slot('parent') Главная @endslot
-    @slot('active') Редактирование группы @endslot
+    @slot('active') Польлзователи @endslot
   @endcomponent
 
 <hr>
@@ -14,12 +14,12 @@
 
 <div class="container">
 
-  <form class="" action="{{route('admin.test_group.update', $test_group)}}" method="post">
+  <form class="" action="{{route('admin.user_management.user.store', $user)}}" method="post">
     {{csrf_field()}}
     {{method_field('PUT')}}
 
     {{-- Form include --}}
-    @include('admin.test_groups.partials.form')
+    @include('admin.user_management.user.partials.form')
   </form>
 </div>
 
