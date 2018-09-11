@@ -37,11 +37,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>Разделы</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>Пользователи</a>
                         <ul class="dropdown-menu">
                           <li>
-                            <a href="{{route('admin.test_group.index')}}">Группы</a>
-                            <a href="{{route('admin.question.index')}}">Вопросы</a>
+                            <a href="{{route('admin.user_management.profession.index')}}">Профессии</a>
                             <a href="{{route('admin.user_management.user.index')}}">Пользователи</a>
                           </li>
 
@@ -51,8 +50,9 @@
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>Тесты</a>
                           <ul class="dropdown-menu">
                             <li>
-                              <a href="#">Редактировать</a>
-                              <a href="#">Добавить</a>
+                                <a href="{{route('admin.test_group.index')}}">Группы</a>
+                                <a href="{{route('admin.question.index')}}">Вопросы</a>
+                                <a href="{{route('admin.paper.index')}}">Билеты</a>
                             </li>
 
                           </ul>

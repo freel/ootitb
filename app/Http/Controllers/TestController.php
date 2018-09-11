@@ -9,6 +9,7 @@ class TestController extends Controller
 {
     public function index(){
         $test_groups = TestGroup::where('parent_id', '0')->paginate(8);
+        $test =
         return view('test.index', ['test_groups'=>$test_groups]);
     }
 

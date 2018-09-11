@@ -14,12 +14,12 @@
 
 <div class="container">
 
-  <form class="" action="{{route('admin.user_management.user.store', $user)}}" method="post">
+  <form class="" action="{{route('admin.user_management.user.update', $user)}}" method="post">
     {{csrf_field()}}
     {{method_field('PUT')}}
 
     {{-- Form include --}}
-    @include('admin.user_management.users.partials.form')
+    @include('admin.user_management.user.partials.form')
   </form>
 </div>
 

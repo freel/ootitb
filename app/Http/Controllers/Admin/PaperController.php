@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\UserManagement;
+namespace App\Http\Controllers\Admin;
 
-use App\Profession;
+use App\Paper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProfessionController extends Controller
+class PaperController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class ProfessionController extends Controller
      */
     public function index()
     {
-        return view('admin.user_management.professions.index', [
-          'professions' => Profession::paginate(10),
+      //TODO выдача по группам
+        return view('admin.papers.index', [
+          'papers' => Paper::paginate(10),
         ]);
     }
 
@@ -44,10 +45,10 @@ class ProfessionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Profession  $profession
+     * @param  \App\Paper  $paper
      * @return \Illuminate\Http\Response
      */
-    public function show(Profession $profession)
+    public function show(Paper $paper)
     {
         //
     }
@@ -55,10 +56,10 @@ class ProfessionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Profession  $profession
+     * @param  \App\Paper  $paper
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profession $profession)
+    public function edit(Paper $paper)
     {
         //
     }
@@ -67,10 +68,10 @@ class ProfessionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Profession  $profession
+     * @param  \App\Paper  $paper
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profession $profession)
+    public function update(Request $request, Paper $paper)
     {
         //
     }
@@ -78,10 +79,10 @@ class ProfessionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Profession  $profession
+     * @param  \App\Paper  $paper
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profession $profession)
+    public function destroy(Paper $paper)
     {
         //
     }

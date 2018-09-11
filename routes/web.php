@@ -18,6 +18,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], 
   Route::get('/', 'DashboardController@index')->name('admin.index');
   Route::resource('/test_group', 'TestGroupController', ['as'=>'admin']);
   Route::resource('/question', 'QuestionController', ['as'=>'admin']);
+  Route::resource('/paper', 'PaperController', ['as'=>'admin']);
   Route::group(['prefix'=>'user_management', 'namespace'=>'UserManagement'], function(){
     Route::resource('/user', 'UserController', ['as'=>'admin.user_management']);
     Route::resource('/profession', 'ProfessionController', ['as'=>'admin.user_management']);

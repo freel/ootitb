@@ -17,4 +17,9 @@ class Question extends Model
     public function answers(){
       return $this->hasMany('App\Answer');
     }
+
+    // Билеты в которые включен вопрос
+    public function papers(){
+      return $this->belongsToMany('App\Paper');
+    }
 }

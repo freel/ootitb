@@ -19,7 +19,7 @@
     {{method_field('PUT')}}
 
     {{-- Form include --}}
-    @include('admin.user_management.users.partials.form')
+    @include('admin.user_management.user.partials.form')
   </form>
 </div>
 

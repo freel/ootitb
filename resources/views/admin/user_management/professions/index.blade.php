@@ -4,27 +4,25 @@
 
 <div class="container">
   @component('admin.components.breadcrumb')
-    @slot('title') Список пользователей @endslot
+    @slot('title') Список профессий @endslot
     @slot('parent') Главная @endslot
-    @slot('active') Пользователи @endslot
+    @slot('active') Профессии @endslot
   @endcomponent
 
 <hr>
 
-<a href="{{ route('admin.user_management.user.create') }}" class="btn btn-primary pull-right">Добавить</a>
+<a href="{{ route('admin.user_management.profession.create') }}" class="btn btn-primary pull-right">Добавить</a>
 <table class="table">
   <thead>
-    <th>Имя</th>
-    <th>Email</th>
+    <th>Название</th>
     <th>Действие</th>
   </thead>
   <tbody>
-    @forelse ($users as $user)
+    @forelse ($professions as $profession)
       <tr>
-        <td>{{$user->name}}</td>
-        <td>{{$user->email}}</td>
+        <td>{{$profession->name}}</td>
         <td>
-          <a href="{{route('admin.user_management.user.edit', $user)}}">Редактировать</a>
+          <a href="{{route('admin.user_management.profession.edit', $profession)}}">Редактировать</a>
         </td>
       </tr>
     @empty
@@ -37,7 +35,7 @@
     <tr>
       <td colspan="3">
         <ul class="pagination pull-right">
-          {{ $users->links() }}
+          {{ $professions->links() }}
         </ul>
       </td>
     </tr>

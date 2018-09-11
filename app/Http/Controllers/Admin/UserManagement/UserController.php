@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user_management.user.create', [
+        return view('admin.user_management.users.create', [
           'user' => [],
         ]);
     }
@@ -41,7 +41,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = User::create($request->all());
-        return redirect()->route('admin.user_management.user.index');
+        return redirect()->route('admin.user_management.users.index');
     }
 
     /**
@@ -63,7 +63,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.user_management.users.create', [
+          'user' => [],
+        ]);
     }
 
     /**
