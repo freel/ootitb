@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\UserManagement;
 
 use App\Profession;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProfessionController extends Controller
 {
