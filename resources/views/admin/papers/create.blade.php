@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
 
-  <form class="" action="{{route('admin.question.store')}}" method="post">
+  <form class="" action="{{route('admin.paper.store')}}" method="post">
     {{csrf_field()}}
 
     {{-- Form include --}}
-    @include('admin.questions.partials.form')
+    @include('admin.papers.partials.form')
 
   </form>
 

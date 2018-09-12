@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Paper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\TestGroup;
 
 class PaperController extends Controller
 {
@@ -28,7 +29,11 @@ class PaperController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.papers.create', [
+          'paper' => [],
+          'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
+          'delimiter'   => ''
+        ]);
     }
 
     /**
@@ -39,7 +44,9 @@ class PaperController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $paper = Paper::create($request->all());
+        $test_group = TestGroup::get($request->test_group);
+        $paper->test_group()->associate($test_group);
     }
 
     /**

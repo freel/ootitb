@@ -27,7 +27,9 @@ class ProfessionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.user_management.professions.create', [
+          'profession' => []
+        ]);
     }
 
     /**
@@ -38,7 +40,8 @@ class ProfessionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Profession::create($request->all());
+        return redirect()->route('admin.user_management.profession.index');
     }
 
     /**
@@ -60,7 +63,9 @@ class ProfessionController extends Controller
      */
     public function edit(Profession $profession)
     {
-        //
+      return view('admin.user_management.professions.edit', [
+        'profession' => $profession,
+      ]);
     }
 
     /**
@@ -72,7 +77,8 @@ class ProfessionController extends Controller
      */
     public function update(Request $request, Profession $profession)
     {
-        //
+        $profession->update($request->all());
+        return redirect()->route('admin.user_management.profession.index');
     }
 
     /**

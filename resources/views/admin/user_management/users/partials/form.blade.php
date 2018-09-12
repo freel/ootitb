@@ -1,8 +1,8 @@
 <div class="form-group">
   <label for="title">ФИО</label>
-  <input type="text" class="form-control" name="title"
+  <input type="text" class="form-control" name="name"
   @if (isset($user->id))
-    value="{{$user->title}}"
+    value="{{$user->name}}"
   @endif />
 </div>
 <div class="form-group">
@@ -13,16 +13,15 @@
   @endif />
 </div>
 <div class="form-group">
-  <label for="title">Email</label>
-  <input type="text" class="form-control" name="email">
+  <label for="title">Пароль</label>
+  <input id="password" type="password" class="form-control" name="password" required="required">
 </div>
 <div class="form-group">
   <label for="parent_id">Профессия</label>
-  <select class="form-control" name="parent_id">
-    <option value="0">-- без родительской группы --</option>
+  <select class="form-control" name="profession">
 
     {{-- Selector include --}}
-    {{-- @include('admin.test_groups.partials.parents', ['test_groups' => $test_groups]) --}}
+    @include('admin.user_management.users.partials.profession')
 
   </select>
 </div>

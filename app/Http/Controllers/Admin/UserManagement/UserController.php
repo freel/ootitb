@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\UserManagement;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Profession;
 
 class UserController extends Controller
 {
@@ -29,6 +30,7 @@ class UserController extends Controller
     {
         return view('admin.user_management.users.create', [
           'user' => [],
+          'professions' => Profession::get(),
         ]);
     }
 
@@ -64,7 +66,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return view('admin.user_management.users.create', [
-          'user' => [],
+          'user' => $user,
+          'professions' => Profession::get(),
         ]);
     }
 
@@ -77,7 +80,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->all());
+        return redirect()->route('admin.user_management.user.index');
     }
 
     /**

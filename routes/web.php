@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/test', 'TestController@index')->name('test.index');
-Route::get('/test/{id}', 'TestController@group')->name('test.group');
+Route::get('/test/{id?}', 'TestController@index')->name('test.index');
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
   Route::get('/', 'DashboardController@index')->name('admin.index');

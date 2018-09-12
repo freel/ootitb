@@ -11,9 +11,9 @@
 
   @if (count($test_group_list->children) > 0)
 
-    @include('admin.questions.partials.areas', [
+    @include('admin.papers.partials.areas', [
       'test_groups' => $test_group_list->children,
-      'delimiter'           => ' - '.$delimiter
+      'delimiter'   => ' - '.$delimiter
     ])
 
   @endif

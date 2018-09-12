@@ -44,9 +44,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-      // return dd($request->input('answers'));
         $question = Question::create($request->all());
-        // return dd($question->test_groups());
 
         //Есть привязка к областям проверки
         if($request->input('test_groups')) :
