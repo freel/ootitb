@@ -2,14 +2,15 @@
 
 @section('content')
   <div class="container">
+    <form class="" action="{{route('admin.question.store')}}" method="post">
+      {{csrf_field()}}
+
       @include('test.partials.form')
 
-      {{ $questions->links() }}
-  </div>
-  @isset($tests)
-    <div class="container">
-      <a href="{{route('test.exam')}}" class="btn btn-primary">Начать тест</a>
 
-    </div>
-  @endisset
+    </form>
+
+      {{ $questions->links() }}
+
+  </div>
 @endsection

@@ -41,11 +41,16 @@ class PaperController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @
      */
     public function store(Request $request)
     {
         $test_group = TestGroup::where('id', $request->test_group_id)->first();
-        $paper = $test_group->papers()->create($request->all());
+        for ($paper_index = 1; $paper_index <= $request->paper_num; ++$paper_index){
+          $paper = $test_group->papers()->create([
+            'paper_index'   => $paper_index,
+          ]);
+        }
         return redirect()->route('admin.paper.index');
     }
 

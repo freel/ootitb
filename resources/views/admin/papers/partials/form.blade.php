@@ -1,6 +1,6 @@
 <div class="form-group">
-  <label for="title">Номер билета</label>
-  <input type="text" class="form-control" name="paper_index"
+  <label for="title">Количество билетов</label>
+  <input type="text" class="form-control" name="paper_num"
   @if (isset($paper->id))
     value="{{$paper->paper_index}}"
   @endif />
