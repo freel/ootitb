@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paper extends Model
 {
-    protected $fillable=['paper_index'];
+    protected $fillable=['paper_index', 'test_group_id'];
 
     // Группа в которой находится билет
     public function testGroup(){

@@ -12,6 +12,7 @@
 */
 
 Route::get('/test/{id?}', 'TestController@index')->name('test.index');
+Route::get('/test/{id}/exam', 'TestController@exam')->name('test.exam');
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
   Route::get('/', 'DashboardController@index')->name('admin.index');

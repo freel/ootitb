@@ -14,22 +14,17 @@
 <a href="{{ route('admin.paper.create') }}" class="btn btn-primary pull-right">Добавить</a>
 <table class="table">
   <thead>
-    <th>Пункт</th>
-    <th>Текст</th>
-    <th>Области</th>
+    <th>Группа</th>
+    <th>Номер билета</th>
     <th>Действие</th>
   </thead>
   <tbody>
     @forelse ($papers as $paper)
       <tr>
-        <td>{{$paper->id}}</td>
-        <td>{{$paper->title}}</td>
+        <td>{{ $paper->testGroup()->first()->description_short }}</td>
+        <td>{{$paper->paper_index}}</td>
         <td>
-          {{$paper->test_groups()->pluck('title')->implode(', ')}}
-
-        </td>
-        <td>
-          <a href="{{route('admin.paper.edit', $papers)}}">Редактировать</a>
+          <a href="{{route('admin.paper.edit', $paper)}}">Редактировать</a>
         </td>
       </tr>
     @empty

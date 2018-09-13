@@ -44,9 +44,9 @@ class PaperController extends Controller
      */
     public function store(Request $request)
     {
-        $paper = Paper::create($request->all());
-        $test_group = TestGroup::get($request->test_group);
-        $paper->test_group()->associate($test_group);
+        $test_group = TestGroup::where('id', $request->test_group_id)->first();
+        $paper = $test_group->papers()->create($request->all());
+        return redirect()->route('admin.paper.index');
     }
 
     /**
@@ -68,7 +68,11 @@ class PaperController extends Controller
      */
     public function edit(Paper $paper)
     {
-        //
+        return view('admin.papers.edit', [
+          'paper' => $paper,
+          'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
+          'delimiter'   => ''
+        ]);
     }
 
     /**
@@ -80,7 +84,8 @@ class PaperController extends Controller
      */
     public function update(Request $request, Paper $paper)
     {
-        //
+      $paper->update($request->all());
+      return redirect()->route('admin.paper.index');
     }
 
     /**

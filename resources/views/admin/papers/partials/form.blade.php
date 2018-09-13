@@ -6,8 +6,8 @@
   @endif />
 </div>
 <div class="form-group">
-  <label for="test_groups">Родительская область</label>
-  <select class="form-control " name="test_group">
+  <label for="test_groups">Группа</label>
+  <select class="form-control " name="test_group_id">
     @include('admin.papers.partials.areas', ['test_groups' => $test_groups])
   </select>
 

@@ -1,7 +1,7 @@
 @foreach ($test_groups as $test_group_list)
   <option value="{{ $test_group_list->id or ""}}"
-    @isset($areas)
-      @if ($areas->contains($test_group_list))
+    @isset($paper->id)
+      @if ($paper->testGroup()->first() == $test_group_list)
         selected
       @endif
     @endisset

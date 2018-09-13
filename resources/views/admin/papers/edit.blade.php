@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
 
-  <form class="" action="{{route('admin.question.update', $question)}}" method="post">
+  <form class="" action="{{route('admin.paper.update', $paper)}}" method="post">
     {{csrf_field()}}
     {{method_field('PUT')}}
 
     {{-- Form include --}}
-    @include('admin.questions.partials.form')
+    @include('admin.papers.partials.form')
 
   </form>
 

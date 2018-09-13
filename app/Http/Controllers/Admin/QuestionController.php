@@ -28,7 +28,6 @@ class QuestionController extends Controller
      */
     public function create()
     {
-
         return view('admin.questions.create', [
           'question'    => [],
           'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
@@ -47,8 +46,8 @@ class QuestionController extends Controller
         $question = Question::create($request->all());
 
         //Есть привязка к областям проверки
-        if($request->input('test_groups')) :
-          $question->test_groups()->attach($request->input('test_groups'));
+        if($request->input('papers')) :
+          $question->papers()->attach($request->input('papers'));
         endif;
 
         //Есть ответы
@@ -106,9 +105,9 @@ class QuestionController extends Controller
         $question->update($request->all());
 
         //Отцепляем группы и прицепляем после изменений
-        $question->test_groups()->detach();
-        if($request->input('test_groups')) :
-          $question->test_groups()->attach($request->input('test_groups'));
+        $question->papers()->detach();
+        if($request->input('papers')) :
+          $question->papers()->attach($request->input('papers'));
         endif;
 
         //Работаем с ответами

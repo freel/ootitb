@@ -11,9 +11,7 @@
 </div>
 <div class="form-group">
   <label for="test_groups">Родительская область</label>
-  <select class="form-control" multiple="multiple" name="test_groups[]">
-    <option value="0">-- без родительской области --</option>
-
+  <select class="form-control" multiple="multiple" name="papers[]">
     {{-- Selector include --}}
     @include('admin.questions.partials.areas', ['test_groups' => $test_groups])
 
