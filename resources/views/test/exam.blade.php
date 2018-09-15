@@ -2,7 +2,8 @@
 
 @section('content')
   <div class="container">
-    <form class="" action="{{route('admin.question.store')}}" method="post">
+    <span>Билет №{{$paper->id}}</span>
+    <form class="" action="{{route('test.answer', ['id' => $test_group, 'paper_id' => $paper ]) }}" method="post">
       {{csrf_field()}}
 
       @include('test.partials.form')
@@ -10,7 +11,7 @@
 
     </form>
 
-      {{ $questions->links() }}
+      {{-- {{ $questions->links() }} --}}
 
   </div>
 @endsection

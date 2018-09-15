@@ -20,11 +20,4 @@
 
     {{ $test_groups->links() }}
   </div>
-  {{-- @isset($start_test)
-    <div class="container">
-      <a href="{{ route('test.exam', $test_groups->first() ) }}" class="btn btn-primary">Начать тест</a> --}}
-      {{-- <a href="#" class="btn btn-primary">Начать тест</a> --}}
-
-    {{-- </div>
-  @endisset --}}
 @endsection
