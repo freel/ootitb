@@ -2,7 +2,9 @@
 
 @section('content')
   <div class="container">
-    <span>Билет №{{$paper->id}}</span>
+    <h4>Билет №{{$paper->id}}</h4>
+    <hr>
+    
     <form class="" action="{{route('test.answer', ['id' => $test_group, 'paper_id' => $paper ]) }}" method="post">
       {{csrf_field()}}
 

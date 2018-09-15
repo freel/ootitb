@@ -1,14 +1,9 @@
 @foreach ($questions as $question)
-  <div class="row" name="question[]">
-    <div class="col-lg-8">
-      <span>{{ $question->text }}</span>
-    </div>
-  </div>
+  <div class="jumbotron">
+    <p>{{ $question->text }}</p>
 
-  <div class="row">
-    <div class="col-lg-8">
-      @include('test.partials.answers', ['answers' => $question->answers()->inRandomOrder()->get()])
-    </div>
+    @include('test.partials.answers', ['answers' => $question->answers()->inRandomOrder()->get()])
+
   </div>
 @endforeach
 

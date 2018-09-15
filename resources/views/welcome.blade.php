@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container">
-    <a href="{{ route('test.index') }}">Тесты</a>
+
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a href="{{ route('test.index') }}" class="nav-link">Тесты</a>
+
+    </li>
+
+  </ul>
 </div>
 @endsection

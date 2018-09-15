@@ -2,21 +2,20 @@
 
 @section('content')
   <div class="container">
-    @foreach ($test_groups as $group)
-      <div class="row">
-
-        @if ($group->papers->count())
-          <div class="col-lg-8">
-            <span>{{ $group->title }}</span>
-            <a href="{{ route('test.exam', $group ) }}" class="btn btn-primary">Начать тест</a>
-          </div>
-        @else
-          <div class="col-lg-8">
-            <a href="{{ route('test.index', $group ) }}">{{ $group->title }}</a>
-          </div>
-        @endif
-      </div>
-    @endforeach
+    <ul class="nav flex-column">
+      @foreach ($test_groups as $group)
+        <li class="nav-item inline">
+          @if ($group->children()->count())
+            <a href="{{ route('test.index', $group ) }}" class="nav-link inline">{{ $group->title }}</a>
+          @else
+            <a class="nav-link disabeled inline">{{ $group->title }}</a>
+          @endif
+          @if ($group->papers->count())
+            <a href="{{ route('test.exam', $group ) }}" class="btn btn-primary inline">Начать тест</a>
+          @endif
+        </li>
+      @endforeach
+    </ul>
 
     {{ $test_groups->links() }}
   </div>
