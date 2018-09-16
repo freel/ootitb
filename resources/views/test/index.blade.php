@@ -2,20 +2,28 @@
 
 @section('content')
   <div class="container">
-    <ul class="nav flex-column">
+    <div class="card-deck">
       @foreach ($test_groups as $group)
-        <li class="nav-item inline">
-          @if ($group->children()->count())
-            <a href="{{ route('test.index', $group ) }}" class="nav-link inline">{{ $group->title }}</a>
-          @else
-            <a class="nav-link disabeled inline">{{ $group->title }}</a>
-          @endif
-          @if ($group->papers->count())
-            <a href="{{ route('test.exam', $group ) }}" class="btn btn-primary inline">Начать тест</a>
-          @endif
-        </li>
+        <div class="col-sm-4 d-flex align-items-stretch">
+          <div class="card mb-3" style="width: 18rem;">
+            {{-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> --}}
+            <div class="card-body">
+              <h5 class="card-title">{{ $group->title }}</h5>
+              <p class="card-text">{{ $group->description_short }}</p>
+            </div>
+            <div class="card-footer">
+              @if ($group->children()->count())
+                <a href="{{ route('test.index', $group ) }}" class="btn btn-primary">Продолжить</a>
+              @endif
+              @if ($group->papers->count())
+                <a href="{{ route('test.exam', $group ) }}" class="btn btn-primary">Начать тест</a>
+              @endif
+            </div>
+          </div>
+
+        </div>
       @endforeach
-    </ul>
+    </div>
 
     {{ $test_groups->links() }}
   </div>

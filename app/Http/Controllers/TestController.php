@@ -8,7 +8,7 @@ use App\TestGroup;
 class TestController extends Controller
 {
     public function index($parent_id = '0'){
-        $retval = ['test_groups'=>TestGroup::where('parent_id', $parent_id)->paginate(8)];
+        $retval = ['test_groups'=>TestGroup::where('parent_id', $parent_id)->paginate(12)];
         return view('test.index', $retval);
     }
 
