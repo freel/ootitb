@@ -18,7 +18,7 @@ class PaperController extends Controller
     {
       //TODO выдача по группам
         return view('admin.papers.index', [
-          'papers' => Paper::paginate(10),
+          'papers' => Paper::with('testGroup:title')->paginate(10),
         ]);
     }
 

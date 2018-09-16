@@ -11,36 +11,11 @@
 
 <hr>
 
-<a href="{{ route('admin.user_management.profession.create') }}" class="btn btn-primary pull-right">Добавить</a>
-<table class="table">
-  <thead>
-    <th>Название</th>
-    <th>Действие</th>
-  </thead>
-  <tbody>
-    @forelse ($professions as $profession)
-      <tr>
-        <td>{{$profession->name}}</td>
-        <td>
-          <a href="{{route('admin.user_management.profession.edit', $profession)}}">Редактировать</a>
-        </td>
-      </tr>
-    @empty
-      <tr>
-        <td colspan="3">Данные отсутствуют</td>
-      </tr>
-    @endforelse
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">
-        <ul class="pagination pull-right">
-          {{ $professions->links() }}
-        </ul>
-      </td>
-    </tr>
-  </tfoot>
-</table>
+@include('admin.partials.table', [
+  'route' => 'admin.user_management.profession',
+  'head' => ['name'=>'Название'],
+  'data' => $professions,
+])
 
 </div>
 @endsection

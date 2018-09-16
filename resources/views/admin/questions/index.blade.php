@@ -11,7 +11,13 @@
 
 <hr>
 
-<a href="{{ route('admin.question.create') }}" class="btn btn-primary pull-right">Добавить</a>
+@include('admin.partials.table', [
+  'route' => 'admin.test_group',
+  'head' => ['title'=>'Пункт','text'=>'Текст','test_groups'=>'Области'],
+  'data' => $questions,
+])
+
+{{-- <a href="{{ route('admin.question.create') }}" class="btn btn-primary pull-right">Добавить</a>
 <table class="table">
   <thead>
     <th>Пункт</th>
@@ -47,7 +53,7 @@
       </td>
     </tr>
   </tfoot>
-</table>
+</table> --}}
 
 </div>
 @endsection

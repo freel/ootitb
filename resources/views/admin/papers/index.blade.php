@@ -11,6 +11,12 @@
 
 <hr>
 
+@include('admin.partials.table', [
+  'route' => 'admin.paper',
+  'head' => ['testGroup.title'=>'Группа','paper_index'=>'Номер билета'],
+  'data' => $papers,
+])
+{{--
 <a href="{{ route('admin.paper.create') }}" class="btn btn-primary pull-right">Добавить</a>
 <table class="table">
   <thead>
@@ -42,7 +48,7 @@
       </td>
     </tr>
   </tfoot>
-</table>
+</table> --}}
 
 </div>
 @endsection

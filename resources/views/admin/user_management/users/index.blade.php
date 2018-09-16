@@ -11,38 +11,11 @@
 
 <hr>
 
-<a href="{{ route('admin.user_management.user.create') }}" class="btn btn-primary pull-right">Добавить</a>
-<table class="table">
-  <thead>
-    <th>Имя</th>
-    <th>Email</th>
-    <th>Действие</th>
-  </thead>
-  <tbody>
-    @forelse ($users as $user)
-      <tr>
-        <td>{{$user->name}}</td>
-        <td>{{$user->email}}</td>
-        <td>
-          <a href="{{route('admin.user_management.user.edit', $user)}}">Редактировать</a>
-        </td>
-      </tr>
-    @empty
-      <tr>
-        <td colspan="3">Данные отсутствуют</td>
-      </tr>
-    @endforelse
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">
-        <ul class="pagination pull-right">
-          {{ $users->links() }}
-        </ul>
-      </td>
-    </tr>
-  </tfoot>
-</table>
+  @include('admin.partials.table', [
+    'route' => 'admin.user_management.user',
+    'head' => ['name'=>'Имя','email'=>'Email'],
+    'data' => $users,
+  ])
 
 </div>
 @endsection

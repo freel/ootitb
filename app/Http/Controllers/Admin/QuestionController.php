@@ -16,8 +16,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
+      // return dd(Question::with('test_groups')->paginate(10));
         return view ('admin.questions.index', [
-          'questions' => Question::paginate(10)
+          'questions' => Question::with('testGroups')->paginate(10)
         ]);
     }
 

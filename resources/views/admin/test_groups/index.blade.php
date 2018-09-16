@@ -11,38 +11,11 @@
 
 <hr>
 
-<a href="{{ route('admin.test_group.create') }}" class="btn btn-primary pull-right">Добавить</a>
-<table class="table">
-  <thead>
-    <th>Наименование</th>
-    <th>Краткое описание</th>
-    <th>Действие</th>
-  </thead>
-  <tbody>
-    @forelse ($test_groups as $test_group)
-      <tr>
-        <td>{{$test_group->title}}</td>
-        <td>{{$test_group->description_short}}</td>
-        <td>
-          <a href="{{route('admin.test_group.edit', $test_group)}}">Редактировать</a>
-        </td>
-      </tr>
-    @empty
-      <tr>
-        <td colspan="3">Данные отсутствуют</td>
-      </tr>
-    @endforelse
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">
-        <ul>
-          {{ $test_groups->links() }}
-        </ul>
-      </td>
-    </tr>
-  </tfoot>
-</table>
+@include('admin.partials.table', [
+  'route' => 'admin.test_group',
+  'head' => ['title'=>'Наименование','description_short'=>'Краткое описание'],
+  'data' => $test_groups,
+])
 
 </div>
 @endsection
