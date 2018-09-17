@@ -27,22 +27,48 @@ class TestController extends Controller
     public function answer(Request $request, $id, $paper_id){
       $papers = TestGroup::with('papers')->where('id', $id)->first()->papers;
       $paper = $papers[$paper_id-1];
-      $questions = $paper->questions()->get();
-      $answers = $request->answers;
+      $questions = $paper->questions()->with('answers')->get();
+      $user_answers = $request->answers;
+
+
+      // foreach (collect($mistakes) as $value) {
+      //   return dd($value->question);
+      // }
+      // return dd (collect((object)$mistakes));
+      return view('test.result', $this->check_results($paper, $questions, $user_answers));
+    }
+
+    /** Проверка результатов
+    *
+    * @var $paper - коллекция вопросов с id - номер билета
+    */
+    private function check_results($paper, $questions, $user_answers){
       //TODO обработка результатов
       foreach ($questions as $question){
-        $right_answers = $question->answers()->where('right',true)->get();
-        foreach ($right_answers as $right_answer){
-          if (!in_array($right_answer->id,$answers)){
-            $mistakes[] = [
-              'question'=>$question
-            ];
+        $wrong_answers = [];
+        $right_answers = [];
+        foreach ($question->answers as $answer){
+          if (in_array($answer->id, $user_answers) && (!$answer->right)){
+            $wrong_answers[] = $answer;
           }
         }
+        if ($wrong_answers){
+          $mistakes[] = (object)[
+            'question'=>$question,
+            'mistakes'=>$wrong_answers,
+            'right'=>$question->answers->where('right',true),
+          ];
+
+        }
       }
-      return view('test.result',[
+      // return dd($mistakes);
+      $result = [
+        'questions_count' => $questions->count(),
         'paper' => $paper,
-        'mistakes' => collect($mistakes)
-      ]);
+        'mistakes' => collect((object)$mistakes)
+      ];
+      return $result;
+
     }
+
 }

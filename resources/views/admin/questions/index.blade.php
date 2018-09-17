@@ -12,7 +12,7 @@
 <hr>
 
 @include('admin.partials.table', [
-  'route' => 'admin.test_group',
+  'route' => 'admin.question',
   'head' => ['title'=>'Пункт','text'=>'Текст','test_groups'=>'Области'],
   'data' => $questions,
 ])

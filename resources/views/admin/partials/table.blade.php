@@ -10,7 +10,6 @@
     @forelse ($data as $data_row)
       <tr>
         @foreach ($head as $header_key=>$header_td)
-          {{$data_row['testGroup']['title']}}
           @if (is_array($data_row[$header_key]))
             <td>{{$data_row[$header_key]->pluck('title')->implode(', ')}}</td>
           @else

@@ -87,7 +87,7 @@ class QuestionController extends Controller
 
       return view('admin.questions.edit', [
         'question'    => $question,
-        'areas'       => $question->test_groups()->get(),
+        'areas'       => $question->testGroups()->get(),
         'answers'     => $question->answers()->get(),
         'test_groups' => $test_groups,
         'delimiter'   => ''
