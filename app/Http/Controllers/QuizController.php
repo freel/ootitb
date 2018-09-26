@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\TestGroup;
+use App\Category;
 
-class TestController extends Controller
+class QuizController extends Controller
 {
     public function index($parent_id = '0'){
-        $retval = ['test_groups'=>TestGroup::where('parent_id', $parent_id)->paginate(12)];
-        return view('test.index', $retval);
+        $retval = ['categories'=>Category::where('parent_id', $parent_id)->paginate(12)];
+        return view('quiz.index', $retval);
     }
 
     public function exam($id){
-        $papers = TestGroup::with('papers')->where('id', $id)->first()->papers;
+        $papers = Category::with('papers')->where('id', $id)->first()->papers;
         $paper = $papers[rand(0, $papers->count()-1)];
         // return dd($papers->questions()->paginate(1)->first());
         $questions = $paper->questions()->get();
-        return view('test.exam',[
-            'test_group' => $id,
+        return view('quiz.exam',[
+            'category' => $id,
             'paper' => $paper,
             'questions' => $questions,
           ]);
     }
 
     public function answer(Request $request, $id, $paper_id){
-      $papers = TestGroup::with('papers')->where('id', $id)->first()->papers;
+      $papers = Category::with('papers')->where('id', $id)->first()->papers;
       $paper = $papers[$paper_id-1];
       $questions = $paper->questions()->with('answers')->get();
       $user_answers = $request->answers;
@@ -35,7 +35,7 @@ class TestController extends Controller
       //   return dd($value->question);
       // }
       // return dd (collect((object)$mistakes));
-      return view('test.result', $this->check_results($paper, $questions, $user_answers));
+      return view('quiz.result', $this->check_results($paper, $questions, $user_answers));
     }
 
     /** Проверка результатов

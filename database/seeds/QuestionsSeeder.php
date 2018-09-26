@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\TestGroup;
+use App\Category;
 use App\Question;
 
 class QuestionsSeeder extends Seeder
@@ -18,11 +18,11 @@ class QuestionsSeeder extends Seeder
         $file = file_get_contents('database/seeds/paper.json');
         $json = json_decode($file,true);
         // dd($json);
-        $test_group = TestGroup::where('title', 'Слесарь по контрольно-измерительным приборам и автоматике')->first();
-        // dd($test_group);
+        $category = Category::where('title', 'Слесарь по контрольно-измерительным приборам и автоматике')->first();
+        // dd($category);
         foreach ($json as $key => $papers_json){
           foreach ($papers_json as $paper_json){
-            $paper = $test_group->papers()->create([
+            $paper = $category->papers()->create([
                 'paper_index'   => $paper_json['paper'],
             ]);
             foreach ($paper_json['questions'] as $key=>$question_json) {
@@ -46,12 +46,12 @@ class QuestionsSeeder extends Seeder
 
           }
         }
-        // $test_group = TestGroup::->where('title', 'Слесарь по контрольно-измерительным приборам и автоматике')->first();
+        // $category = Category::->where('title', 'Слесарь по контрольно-измерительным приборам и автоматике')->first();
         // // Количество билетов
         // $paper_num = 6;
         // //  создание билетов
         // for ($paper_index = 1; $paper_index <= $paper_num; ++$paper_index){
-        //   $paper = $test_group->papers()->create([
+        //   $paper = $category->papers()->create([
         //     'paper_index'   => $paper_index,
         //   ]);
         //   // Заполнение билетов

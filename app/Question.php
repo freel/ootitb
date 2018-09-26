@@ -9,8 +9,8 @@ class Question extends Model
     protected $fillable=['title', 'text', 'create_by', 'modified_by'];
 
     //Области аттестации в которые включен вопрос
-    public function testGroups(){
-      return $this->belongsToMany('App\TestGroup');
+    public function categories(){
+      return $this->belongsToMany('App\Category');
     }
 
     //Ответы к вопросу

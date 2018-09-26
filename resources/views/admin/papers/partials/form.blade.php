@@ -6,9 +6,9 @@
   @endif />
 </div>
 <div class="form-group">
-  <label for="test_groups">Группа</label>
-  <select class="form-control " name="test_group_id">
-    @include('admin.papers.partials.areas', ['test_groups' => $test_groups])
+  <label for="categories">Группа</label>
+  <select class="form-control " name="category_id">
+    @include('admin.papers.partials.areas', ['categories' => $categories])
   </select>
 
 </div>

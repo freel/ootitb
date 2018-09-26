@@ -14,12 +14,12 @@
 
 <div class="container">
 
-  <form class="" action="{{route('admin.test_group.update', $test_group)}}" method="post">
+  <form class="" action="{{route('admin.category.update', $category)}}" method="post">
     {{csrf_field()}}
     {{method_field('PUT')}}
 
     {{-- Form include --}}
-    @include('admin.test_groups.partials.form')
+    @include('admin.categories.partials.form')
   </form>
 </div>
 

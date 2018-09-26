@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\TestGroup;
+use App\Category;
 
-class TestGroupSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class TestGroupSeeder extends Seeder
     public function run()
     {
         // Заполнение профессий
-        $profession_group = TestGroup::create([
+        $profession_group = Category::create([
           'title' => 'Профессии',
           'description_short' => 'Тесты по профессиям',
           'description' => null,
@@ -30,7 +30,7 @@ class TestGroupSeeder extends Seeder
           'Стропольщик', 'Электрогазосварщик', 'Электромонтер по ремонту и обслуживанию электрооборудования',
         ];
         foreach ($professions as $profession) {
-          TestGroup::create([
+          Category::create([
             'title' => $profession,
             'description_short' => '',
             'description' => null,
@@ -39,7 +39,7 @@ class TestGroupSeeder extends Seeder
         }
 
         // Заполнение Пожарная безопасность
-        $fire_group = TestGroup::create([
+        $fire_group = Category::create([
           'title' => 'Пожарная безопасность',
           'description_short' => 'Тесты пожарно-техническому минимуму',
           'description' => null,
@@ -51,7 +51,7 @@ class TestGroupSeeder extends Seeder
           'Пожарно-технический минимум для рабочих, осуществляющих пожароопасные работы',
         ];
         foreach ($fire_tests as $fire_test) {
-          TestGroup::create([
+          Category::create([
             'title' => $fire_test,
             'description_short' => '',
             'description' => null,
@@ -60,7 +60,7 @@ class TestGroupSeeder extends Seeder
         }
 
         // Заполнение Электробезопасность
-        $electro_group = TestGroup::create([
+        $electro_group = Category::create([
           'title' => 'Электробезопасность',
           'description_short' => 'Общие вопросы эксплуатации электроустановок потребителей',
           'description' => null,
@@ -74,7 +74,7 @@ class TestGroupSeeder extends Seeder
           'Обучение и проверка знаний электротехнического и электротехнологического персонала по электробезопасности (V группа допуска)',
         ];
         foreach ($electro_tests as $electro_test) {
-          TestGroup::create([
+          Category::create([
             'title' => $electro_test,
             'description_short' => '',
             'description' => null,
@@ -83,7 +83,7 @@ class TestGroupSeeder extends Seeder
         }
 
         // Заполнение Управление Рисками
-        $risks_group = TestGroup::create([
+        $risks_group = Category::create([
           'title' => 'Управление Рисками',
           'description_short' => 'Вопросы касаемые распектов, опасностей и рисков, а также действия персонала при аварии (ПМЛА)',
           'description' => null,
@@ -94,7 +94,7 @@ class TestGroupSeeder extends Seeder
           'Аспекты, опасности и риски Береговой опорный ГП',
         ];
         foreach ($risks_tests as $risks_test) {
-          TestGroup::create([
+          Category::create([
             'title' => $risks_test,
             'description_short' => '',
             'description' => null,
@@ -103,7 +103,7 @@ class TestGroupSeeder extends Seeder
         }
 
         // Заполнение Производственный инструкции
-        $instructions_group = TestGroup::create([
+        $instructions_group = Category::create([
           'title' => 'Производственный инструкции',
           'description_short' => 'Тесты по производственным инструкциям',
           'description' => null,
@@ -133,7 +133,7 @@ class TestGroupSeeder extends Seeder
           'Электромонтер по ремонту и обслуживанию электрооборудования 6 разряда',
         ];
         foreach ($instructions_tests as $instructions_test) {
-          TestGroup::create([
+          Category::create([
             'title' => $instructions_test,
             'description_short' => '',
             'description' => null,
@@ -142,7 +142,7 @@ class TestGroupSeeder extends Seeder
         }
 
         // Заполнение По видам работ
-        $types_group = TestGroup::create([
+        $types_group = Category::create([
           'title' => 'По видам работ',
           'description_short' => 'Тесты по инструкциям по охране труда по видам работ',
           'description' => null,
@@ -239,7 +239,7 @@ class TestGroupSeeder extends Seeder
           'По ОТ при косьбе травы',
         ];
         foreach ($types_tests as $types_test) {
-          TestGroup::create([
+          Category::create([
             'title' => $types_test,
             'description_short' => '',
             'description' => null,
@@ -248,48 +248,48 @@ class TestGroupSeeder extends Seeder
         }
 
         //
-        // TestGroup::create([
+        // Category::create([
         //   'title' => 'Профессии',
         //   'description_short' => 'Тесты по профессиям',
         //   'description' => null,
         //   'parent_id' => 0
         // ]);
-        // DB::table('test_groups')->insert(
+        // DB::table('categories')->insert(
         // [
         //   'title' => 'ПОМБЕЗОПАСНОСТЬ',
         //   'description_short' => 'Промышленная безопасность',
         //   'description' => null,
         //   'parent_id' => 0
         // ]);
-        // DB::table('test_groups')->insert(
+        // DB::table('categories')->insert(
         // [
         //   'title' => 'А.',
         //   'description_short' => 'Общие требования промышленной безопасности',
         //   'description' => null,
         //   'parent_id' => 1
         // ]);
-        // DB::table('test_groups')->insert(
+        // DB::table('categories')->insert(
         // [
         //   'title' => 'А.1',
         //   'description_short' => 'Основы промышленной безопасности',
         //   'description' => null,
         //   'parent_id' => 2
         // ]);
-        // DB::table('test_groups')->insert(
+        // DB::table('categories')->insert(
         // [
         //   'title' => 'Б.',
         //   'description_short' => 'Специальные требования промышленной безопасности',
         //   'description' => null,
         //   'parent_id' => 1
         // ]);
-        // DB::table('test_groups')->insert(
+        // DB::table('categories')->insert(
         // [
         //   'title' => 'Б1.',
         //   'description_short' => 'Требования промышленной безопасности в химической, нефтехимической и нефтеперерабатывающей промышленности',
         //   'description' => 'Раздел в редакции, введенной в действие с 25 января 2018 года приказом Ростехнадзора от 19 января 2018 года N 23.',
         //   'parent_id' => 4
         // ]);
-        // DB::table('test_groups')->insert(
+        // DB::table('categories')->insert(
         // [
         //   'title' => 'Б.1.1.',
         //   'description_short' => 'Эксплуатация химически опасных производственных объектов',

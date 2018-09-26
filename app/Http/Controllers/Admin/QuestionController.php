@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\TestGroup;
+use App\Category;
 
 class QuestionController extends Controller
 {
@@ -16,9 +16,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-      // return dd(Question::with('test_groups')->paginate(10));
         return view ('admin.questions.index', [
-          'questions' => Question::with('testGroups')->paginate(10)
+          'questions' => Question::with('categories')->paginate(10)
         ]);
     }
 
@@ -31,7 +30,7 @@ class QuestionController extends Controller
     {
         return view('admin.questions.create', [
           'question'    => [],
-          'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
+          'categories' => Category::with('children')->where('parent_id', '0')->get(),
           'delimiter'   => ''
         ]);
     }
@@ -83,13 +82,13 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-      $test_groups = TestGroup::with('children')->where('parent_id', '0')->get();
+      $categories = Category::with('children')->where('parent_id', '0')->get();
 
       return view('admin.questions.edit', [
         'question'    => $question,
-        'areas'       => $question->testGroups()->get(),
+        'areas'       => $question->categories()->get(),
         'answers'     => $question->answers()->get(),
-        'test_groups' => $test_groups,
+        'categories' => $categories,
         'delimiter'   => ''
       ]);
     }

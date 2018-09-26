@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Paper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\TestGroup;
+use App\Category;
 
 class PaperController extends Controller
 {
@@ -18,7 +18,7 @@ class PaperController extends Controller
     {
       //TODO выдача по группам
         return view('admin.papers.index', [
-          'papers' => Paper::with('testGroup:title')->paginate(10),
+          'papers' => Paper::with('category:title')->paginate(10),
         ]);
     }
 
@@ -31,7 +31,7 @@ class PaperController extends Controller
     {
         return view('admin.papers.create', [
           'paper' => [],
-          'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
+          'categeries' => Category::with('children')->where('parent_id', '0')->get(),
           'delimiter'   => ''
         ]);
     }
@@ -45,9 +45,9 @@ class PaperController extends Controller
      */
     public function store(Request $request)
     {
-        $test_group = TestGroup::where('id', $request->test_group_id)->first();
+        $category = Category::where('id', $request->category_id)->first();
         for ($paper_index = 1; $paper_index <= $request->paper_num; ++$paper_index){
-          $paper = $test_group->papers()->create([
+          $paper = $category->papers()->create([
             'paper_index'   => $paper_index,
           ]);
         }
@@ -75,7 +75,7 @@ class PaperController extends Controller
     {
         return view('admin.papers.edit', [
           'paper' => $paper,
-          'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
+          'categories' => Category::with('children')->where('parent_id', '0')->get(),
           'delimiter'   => ''
         ]);
     }

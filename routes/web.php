@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/test/{id?}', 'TestController@index')->name('test.index');
-Route::get('/test/{id}/exam', 'TestController@exam')->name('test.exam');
-Route::post('/test/{id}/exam/{paper_id}', 'TestController@answer')->name('test.answer');
+Route::get('/quiz/{id?}', 'QuizController@index')->name('quiz.index');
+Route::get('/quiz/{id}/exam', 'QuizController@exam')->name('quiz.exam');
+Route::post('/quiz/{id}/exam/{paper_id}', 'QuizController@answer')->name('quiz.answer');
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
   Route::get('/', 'DashboardController@index')->name('admin.index');
-  Route::resource('/test_group', 'TestGroupController', ['as'=>'admin']);
+  Route::resource('/category', 'CategoryController', ['as'=>'admin']);
   Route::resource('/question', 'QuestionController', ['as'=>'admin']);
   Route::resource('/paper', 'PaperController', ['as'=>'admin']);
   Route::group(['prefix'=>'user_management', 'namespace'=>'UserManagement'], function(){

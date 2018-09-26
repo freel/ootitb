@@ -49,7 +49,7 @@
                           </a>
                           <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="{{route('admin.test_group.index')}}">Группы</a>
+                                <a class="dropdown-item" href="{{route('admin.category.index')}}">Группы</a>
                                 <a class="dropdown-item" href="{{route('admin.question.index')}}">Вопросы</a>
                                 <a class="dropdown-item" href="{{route('admin.paper.index')}}">Билеты</a>
                             </li>

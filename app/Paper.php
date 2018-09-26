@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paper extends Model
 {
-    protected $fillable=['paper_index', 'test_group_id'];
+    protected $fillable=['paper_index', 'category_id'];
 
     // Группа в которой находится билет
-    public function testGroup(){
-      return $this->belongsTo('App\TestGroup');
+    public function category(){
+      return $this->belongsTo('App\Category');
     }
 
     // Вопросы включенные в билет

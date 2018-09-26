@@ -1,8 +1,11 @@
 @foreach ($categories as $category_list)
   <option value="{{ $category_list->id or ""}}"
-    @isset($paper->id)
-      @if ($paper->testGroup()->first() == $category_list)
-        selected
+    @isset($category->id)
+      @if ($category->parent_id == $category_list->id )
+        selected=""
+      @endif
+      @if ($category->id == $category_list->id )
+        hidden=""
       @endif
     @endisset
   >
@@ -11,9 +14,9 @@
 
   @if (count($category_list->children) > 0)
 
-    @include('admin.papers.partials.areas', [
+    @include('admin.categories.partials.parents', [
       'categories' => $category_list->children,
-      'delimiter'   => ' - '.$delimiter
+      'delimiter'           => ' - '.$delimiter
     ])
 
   @endif

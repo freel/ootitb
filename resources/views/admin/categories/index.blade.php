@@ -12,9 +12,9 @@
 <hr>
 
 @include('admin.partials.table', [
-  'route' => 'admin.test_group',
+  'route' => 'admin.category',
   'head' => ['title'=>'Наименование','description_short'=>'Краткое описание'],
-  'data' => $test_groups,
+  'data' => $categories,
 ])
 
 </div>

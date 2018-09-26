@@ -16,7 +16,7 @@ class CreatePapersTable extends Migration
         Schema::create('papers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('paper_index');
-            $table->integer('test_group_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

@@ -13,11 +13,11 @@
 
 <div class="container">
 
-  <form class="" action="{{route('admin.test_group.store')}}" method="post">
+  <form class="" action="{{route('admin.category.store')}}" method="post">
     {{csrf_field()}}
 
     {{-- Form include --}}
-    @include('admin.test_groups.partials.form')
+    @include('admin.categories.partials.form')
   </form>
 </div>
 

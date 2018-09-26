@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\TestGroup;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TestGroupController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class TestGroupController extends Controller
      */
     public function index()
     {
-      return view('admin.test_groups.index', [
-        'test_groups' => TestGroup::paginate(10)
+      return view('admin.categories.index', [
+        'categories' => Category::paginate(10)
       ]);
     }
 
@@ -27,9 +27,9 @@ class TestGroupController extends Controller
      */
     public function create()
     {
-      return view('admin.test_groups.create', [
-        'test_group'  => [],
-        'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
+      return view('admin.categories.create', [
+        'category'  => [],
+        'categories' => Category::with('children')->where('parent_id', '0')->get(),
         'delimiter'   => ''
       ]);
     }
@@ -42,17 +42,17 @@ class TestGroupController extends Controller
      */
     public function store(Request $request)
     {
-      TestGroup::create($request->all());
-      return redirect()->route('admin.test_group.index');
+      Category::create($request->all());
+      return redirect()->route('admin.category.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\TestGroup  $testGroup
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(TestGroup $testGroup)
+    public function show(Category $category)
     {
         //
     }
@@ -60,14 +60,14 @@ class TestGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TestGroup  $testGroup
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(TestGroup $testGroup)
+    public function edit(Category $category)
     {
-      return view('admin.test_groups.edit', [
-        'test_group'  => $testGroup,
-        'test_groups' => TestGroup::with('children')->where('parent_id', '0')->get(),
+      return view('admin.categories.edit', [
+        'category'  => $category,
+        'categories' => Category::with('children')->where('parent_id', '0')->get(),
         'delimiter'   => ''
       ]);
     }
@@ -76,22 +76,22 @@ class TestGroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TestGroup  $testGroup
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TestGroup $testGroup)
+    public function update(Request $request, Category $category)
     {
-      $testGroup->update($request->all());
-      return redirect()->route('admin.test_group.index');
+      $category->update($request->all());
+      return redirect()->route('admin.category.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TestGroup  $testGroup
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TestGroup $testGroup)
+    public function destroy(Category $category)
     {
         //
     }

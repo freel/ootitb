@@ -13,7 +13,7 @@
 
 @include('admin.partials.table', [
   'route' => 'admin.question',
-  'head' => ['title'=>'Пункт','text'=>'Текст','test_groups'=>'Области'],
+  'head' => ['title'=>'Пункт','text'=>'Текст','categories'=>'Области'],
   'data' => $questions,
 ])
 
@@ -31,7 +31,7 @@
         <td>{{$question->id}}</td>
         <td>{{$question->title}}</td>
         <td>
-          {{$question->test_groups()->pluck('title')->implode(', ')}}
+          {{$question->categories()->pluck('title')->implode(', ')}}
 
         </td>
         <td>

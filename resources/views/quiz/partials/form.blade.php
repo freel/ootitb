@@ -2,7 +2,7 @@
   <div class="jumbotron">
     <h5>{{ $question->text }}</h5>
 
-    @include('test.partials.answers', ['answers' => $question->answers()->inRandomOrder()->get()])
+    @include('quiz.partials.answers', ['answers' => $question->answers()->inRandomOrder()->get()])
 
   </div>
 @endforeach
