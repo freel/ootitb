@@ -16,7 +16,7 @@ class QuizController extends Controller
         $papers = Category::with('papers')->where('id', $id)->first()->papers;
         $paper = $papers[rand(0, $papers->count()-1)];
         // return dd($papers->questions()->paginate(1)->first());
-        $questions = $paper->questions()->get();
+        $questions = $paper->questions()->with('answers')->get();
         return view('quiz.exam',[
             'category' => $id,
             'paper' => $paper,

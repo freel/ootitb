@@ -8,8 +8,12 @@
     <form class="" action="{{route('quiz.answer', ['id' => $category, 'paper_id' => $paper ]) }}" method="post">
       {{csrf_field()}}
 
-      @include('quiz.partials.form')
+      <pagination-component :questions='{!! json_encode($questions) !!}'>
+      </pagination-component>
+      {{-- @include('quiz.partials.form') --}}
 
+
+      <input class="btn btn-primary" type="submit" value="Ответить">
 
     </form>
 
