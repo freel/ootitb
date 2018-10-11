@@ -5,17 +5,19 @@
     <h4>Билет №{{$paper->id}}</h4>
     <hr>
 
-    <form class="" action="{{route('quiz.answer', ['id' => $category, 'paper_id' => $paper ]) }}" method="post">
-      {{csrf_field()}}
+    {{-- <form class="" action="{{route('quiz.answer', ['id' => $category, 'paper_id' => $paper ]) }}" method="post"> --}}
+      {{-- {{csrf_field()}} --}}
 
-      <pagination-component :questions='{!! json_encode($questions) !!}'>
-      </pagination-component>
+      <quiz-component
+        action='{{route('quiz.answer', ['id' => $category, 'paper_id' => $paper ]) }}'
+        :questions='{!! json_encode($questions) !!}'>
+      </quiz-component>
       {{-- @include('quiz.partials.form') --}}
 
 
-      <input class="btn btn-primary" type="submit" value="Ответить">
+      {{-- <input class="btn btn-primary" type="submit" value="Ответить">
 
-    </form>
+    </form> --}}
 
       {{-- {{ $questions->links() }} --}}
 

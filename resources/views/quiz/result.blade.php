@@ -4,7 +4,7 @@
   <div class="container">
     <span>Билет №{{$paper->id}}</span>
     <div class="alert alert-info" role="alert">
-      Результат {{$questions_count - $mistakes->count()}} правильных ответов из {{$questions_count}}
+      Результат {{$right_count}} правильных ответов из {{$questions_count}}
     </div>
 
     @foreach ($mistakes as $mistake)
@@ -19,9 +19,8 @@
         </div>
         <p>Ваш ответ</p>
         <div class="alert alert-danger" role="alert">
-          @foreach ($mistake->mistakes as $wrong)
-            <p>{{$wrong->text}}</p>
-
+          @foreach ($mistake->wrong as $wrong)
+            <p>{{$wrong['text']}}</p>
           @endforeach
         </div>
       </div>

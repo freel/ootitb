@@ -13,7 +13,7 @@
 
 Route::get('/quiz/{id?}', 'QuizController@index')->name('quiz.index');
 Route::get('/quiz/{id}/exam', 'QuizController@exam')->name('quiz.exam');
-Route::post('/quiz/{id}/exam/{paper_id}', 'QuizController@answer')->name('quiz.answer');
+Route::post('/quiz/{id}/exam/{paper_id}', 'QuizController@quiz_check')->name('quiz.answer');
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
   Route::get('/', 'DashboardController@index')->name('admin.index');
