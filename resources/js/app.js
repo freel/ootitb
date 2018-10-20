@@ -17,11 +17,10 @@ Vue.use(require('vue-resource'));
  */
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('quiz-component', require('./components/QuizComponent.vue'));
 Vue.component('answer-component', require('./components/AnswerComponent.vue'));
-// Vue.component('pagination-component', require('./components/PaginationComponent.vue'));
-Vue.component('paginate', require('vuejs-paginate'))
+Vue.component('paginate', require('vuejs-paginate'));
+Vue.component('countdown', require('@xkeshi/vue-countdown').default);
 
 
 const app = new Vue({

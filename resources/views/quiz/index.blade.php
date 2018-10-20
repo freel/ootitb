@@ -14,9 +14,11 @@
             <div class="card-footer">
               @if ($group->children()->count())
                 <a href="{{ route('quiz.index', $group ) }}" class="btn btn-primary">Продолжить</a>
-              @endif
-              @if ($group->papers->count())
-                <a href="{{ route('quiz.exam', $group ) }}" class="btn btn-primary">Начать тест</a>
+              @elseif ($group->papers->count())
+                <a href="{{ route('try.quiz', $group ) }}" class="btn btn-secondary">Пробный тест</a>
+                <a href="{{ route('exam.quiz', $group ) }}" class="btn btn-primary float-right">Начать тест</a>
+              @else
+                <a href="" class="btn btn-primary disabled">Готовим тест</a>
               @endif
             </div>
           </div>

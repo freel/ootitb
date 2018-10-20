@@ -8,7 +8,20 @@ use App\Category;
 class QuizController extends Controller
 {
     public function index($parent_id = '0'){
-        $categories = Category::select('id', 'title', 'description_short')->where('parent_id', $parent_id)->paginate(12);
+        $categories = Category::select('id', 'title', 'description_short')
+          ->where('parent_id', $parent_id)
+          // ->whereHas('children',function($query){$query->with('questions');
+          ->where(function($q){
+            $q->whereHas('children',function($query){$query->with('questions');})
+            ->orHas('questions')
+            ->orHas('papers')
+            ;
+
+          })
+          // ->has('children.questions')
+          ->paginate(12);
+          // ->toSql();
+        // return dd($categories);
         return view('quiz.index', [
           'categories' => $categories
         ]);
@@ -16,31 +29,45 @@ class QuizController extends Controller
 
     public function exam($id){
         $papers = Category::with(['papers' => function($query) {
-            $query->select('id', 'paper_index', 'category_id');
-        }])->where('id', $id)->first()->papers;
+            $query
+              ->select('id', 'paper_index', 'category_id');
+          }])
+          ->where('id', $id)
+          ->first()
+          ->papers;
         $paper = $papers[rand(0, $papers->count()-1)];
-        $questions = $paper->questions()->select('questions.id', 'title', 'text')->with(['answers' => function($query){
+        $questions = $paper
+          ->questions()
+          ->select('questions.id', 'title', 'text')
+          ->with(['answers' => function($query){
             $query->select('id', 'question_id', 'text');
-        }])->get();
+          }])
+          ->get();
         return view('quiz.exam', [
             'category' => $id,
             'paper' => $paper,
             'questions' => $questions,
+            'timer' => 0.2,
           ]);
     }
 
-    /** Проверка результата тестирования
+    /** Проверка результата экзаменационного тестирования
     * @var $category_id - категория вопросов
     * @var $paper_id - номер билета
     * @var $paper - билет по индексу
     * @var $questions - коллекция вопросов с ответами
     */
-    public function quiz_check(Request $request, $category_id, $paper_id){
-      $papers = Category::with('papers')->where('id', $category_id)->first()->papers;
+    public function exam_check(Request $request, $category_id, $paper_id){
+      $papers = Category::with('papers')
+        ->where('id', $category_id)
+        ->first()
+        ->papers;
       $paper = $papers[$paper_id-1];
-      $questions = $paper->questions()->with(['answers' => function($query){
+      $questions = $paper->questions()
+        ->with(['answers' => function($query){
           $query->select('id', 'question_id', 'text', 'right');
-      }])->get();
+        }])
+        ->get();
       $user_answers = $this->quizArrayMerge($request->answers);
       // foreach ($user_answers as $user_answer){
 

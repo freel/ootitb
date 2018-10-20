@@ -13988,7 +13988,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(49);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
@@ -14014,11 +14014,10 @@ Vue.use(__webpack_require__(40));
  */
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('quiz-component', __webpack_require__(42));
 Vue.component('answer-component', __webpack_require__(45));
-// Vue.component('pagination-component', require('./components/PaginationComponent.vue'));
 Vue.component('paginate', __webpack_require__(48));
+Vue.component('countdown', __webpack_require__(49).default);
 
 var app = new Vue({
   el: '#app'
@@ -48958,6 +48957,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -48975,7 +48976,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Number,
       default: 0
     },
-    action: {}
+    action: {},
+    timer: {
+      default: 30
+    }
   },
   computed: {
     pages: function pages() {
@@ -48984,27 +48988,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     question: function question() {
       return this.questions[this.page - 1];
     }
-    // quizComponent: function() {
-    //     return {
-    //         component: 'quiz-component',
-    //         name: 'quiz-component-'+this.current,
-    //         id: this.current,
-    //         question: this.questions[this.current]
-    //     }
-    // },
   },
   methods: {
-    openPage: function openPage(page) {
-      console.log(page);
-    },
-
-    // answered: function(e){
-    //   console.log(e);
-    // },
     formSubmit: function formSubmit() {
       this.$http.post(this.action, { "answers": this.answered }).then(function (response) {
-        // console.log(response.body);
-        // window.location = response.url;
         document.write(response.body);
       });
     }
@@ -49019,70 +49006,91 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "exam" },
-    [
-      _c("paginate", {
-        attrs: {
-          pageCount: _vm.pages,
-          clickHandler: _vm.openPage,
-          prevText: "Prev",
-          nextText: "Next",
-          containerClass: "pagination",
-          "page-class": "page-item",
-          "page-link-class": "page-link",
-          "prev-link-class": "page-link",
-          "next-link-class": "page-link"
-        },
-        model: {
-          value: _vm.page,
-          callback: function($$v) {
-            _vm.page = $$v
-          },
-          expression: "page"
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "form",
-        [
-          _c("keep-alive", [
-            _c(
-              "div",
-              { staticClass: "jumbotron" },
-              [
-                _c("h5", [_vm._v(_vm._s(_vm.question.text))]),
-                _vm._v(" "),
-                _c("answer-component", {
-                  attrs: {
-                    answers: _vm.question.answers,
-                    question: _vm.question.id
-                  },
-                  model: {
-                    value: _vm.answered,
-                    callback: function($$v) {
-                      _vm.answered = $$v
-                    },
-                    expression: "answered"
+  return _c("div", { staticClass: "exam" }, [
+    _vm.timer
+      ? _c(
+          "div",
+          [
+            _c("countdown", {
+              attrs: { time: _vm.timer * 60 * 1000 },
+              on: { countdownend: _vm.formSubmit },
+              scopedSlots: _vm._u([
+                {
+                  key: "default",
+                  fn: function(props) {
+                    return [
+                      _vm._v(
+                        _vm._s(props.minutes) + ":" + _vm._s(props.seconds)
+                      )
+                    ]
                   }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "btn btn-primary",
-            attrs: { type: "button", value: "Ответить" },
-            on: { click: _vm.formSubmit }
-          })
-        ],
-        1
-      )
-    ],
-    1
-  )
+                }
+              ])
+            })
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "form",
+      [
+        _c("keep-alive", [
+          _c(
+            "div",
+            { staticClass: "jumbotron" },
+            [
+              _c("h5", [_vm._v(_vm._s(_vm.question.text))]),
+              _vm._v(" "),
+              _c("answer-component", {
+                attrs: {
+                  answers: _vm.question.answers,
+                  question: _vm.question.id
+                },
+                model: {
+                  value: _vm.answered,
+                  callback: function($$v) {
+                    _vm.answered = $$v
+                  },
+                  expression: "answered"
+                }
+              })
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("paginate", {
+          attrs: {
+            pageCount: _vm.pages,
+            "page-range": _vm.pages,
+            prevText: "Предыдущий",
+            nextText: "Следующий",
+            containerClass: "pagination",
+            "page-class": "page-item",
+            "page-link-class": "page-link",
+            "prev-link-class": "page-link",
+            "hide-prev-next": true,
+            "next-link-class": "page-link"
+          },
+          model: {
+            value: _vm.page,
+            callback: function($$v) {
+              _vm.page = $$v
+            },
+            expression: "page"
+          }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "btn btn-primary",
+          attrs: { type: "button", value: "Ответить" },
+          on: { click: _vm.formSubmit }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49275,6 +49283,383 @@ if (false) {
 
 /***/ }),
 /* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/*!
+ * vue-countdown v1.0.1
+ * https://xkeshi.github.io/vue-countdown
+ *
+ * Copyright 2017-present Chen Fengyuan
+ * Released under the MIT license
+ *
+ * Date: 2018-09-06T13:42:33.119Z
+ */
+
+var MILLISECONDS_SECOND = 1000;
+var MILLISECONDS_MINUTE = 60 * MILLISECONDS_SECOND;
+var MILLISECONDS_HOUR = 60 * MILLISECONDS_MINUTE;
+var MILLISECONDS_DAY = 24 * MILLISECONDS_HOUR;
+var index = {
+  name: 'countdown',
+  data: function data() {
+    return {
+      /**
+       * Total number of time (in milliseconds) for the countdown.
+       * @type {number}
+       */
+      count: 0,
+
+      /**
+       * Define if the time is countdowning.
+       * @type {boolean}
+       */
+      counting: false,
+
+      /**
+       * The absolute end time.
+       * @type {number}
+       */
+      endTime: 0
+    };
+  },
+  props: {
+    /**
+     * Start to countdown automatically when initialized.
+     */
+    autoStart: {
+      type: Boolean,
+      default: true
+    },
+
+    /**
+     * Indicate if emit the countdown events or not.
+     */
+    emitEvents: {
+      type: Boolean,
+      default: true
+    },
+
+    /**
+     * Update interval time (in milliseconds) of the countdown.
+     */
+    interval: {
+      type: Number,
+      default: 1000
+    },
+
+    /**
+     * Add a leading zero to the output numbers if they are less than 10.
+     */
+    leadingZero: {
+      type: Boolean,
+      default: true
+    },
+
+    /**
+     * Generate the current time of a specific time zone.
+     */
+    now: {
+      type: Function,
+      default: function _default() {
+        return Date.now();
+      }
+    },
+
+    /**
+     * Total number of time (in milliseconds) for the countdown.
+     */
+    time: {
+      type: Number,
+      default: 0,
+      validator: function validator(value) {
+        return value >= 0;
+      }
+    },
+
+    /**
+     * The tag of the component root element in the countdown.
+     */
+    tag: {
+      type: String,
+      default: 'span'
+    }
+  },
+  computed: {
+    /**
+     * Remaining days.
+     * @returns {number}
+     */
+    days: function days() {
+      return Math.floor(this.count / MILLISECONDS_DAY);
+    },
+
+    /**
+     * Remaining hours.
+     * @returns {number}
+     */
+    hours: function hours() {
+      return Math.floor(this.count % MILLISECONDS_DAY / MILLISECONDS_HOUR);
+    },
+
+    /**
+     * Remaining minutes.
+     * @returns {number}
+     */
+    minutes: function minutes() {
+      return Math.floor(this.count % MILLISECONDS_HOUR / MILLISECONDS_MINUTE);
+    },
+
+    /**
+     * Remaining seconds.
+     * @returns {number}
+     */
+    seconds: function seconds() {
+      var interval = this.interval;
+      var seconds = this.count % MILLISECONDS_MINUTE / MILLISECONDS_SECOND;
+
+      if (interval < 10) {
+        return parseFloat(seconds.toFixed(3));
+      }
+
+      if (interval >= 10 && interval < 100) {
+        return parseFloat(seconds.toFixed(2));
+      }
+
+      if (interval >= 100 && interval < 1000) {
+        return parseFloat(seconds.toFixed(1));
+      }
+
+      return Math.floor(seconds);
+    },
+
+    /**
+     * Total remaining days.
+     * @returns {number}
+     */
+    totalDays: function totalDays() {
+      return this.days;
+    },
+
+    /**
+     * Total remaining hours.
+     * @returns {number}
+     */
+    totalHours: function totalHours() {
+      return Math.floor(this.count / MILLISECONDS_HOUR);
+    },
+
+    /**
+     * Total remaining minutes.
+     * @returns {number}
+     */
+    totalMinutes: function totalMinutes() {
+      return Math.floor(this.count / MILLISECONDS_MINUTE);
+    },
+
+    /**
+     * Total remaining seconds.
+     * @returns {number}
+     */
+    totalSeconds: function totalSeconds() {
+      var interval = this.interval;
+      var seconds = this.count / MILLISECONDS_SECOND;
+
+      if (interval < 10) {
+        return parseFloat(seconds.toFixed(3));
+      }
+
+      if (interval >= 10 && interval < 100) {
+        return parseFloat(seconds.toFixed(2));
+      }
+
+      if (interval >= 100 && interval < 1000) {
+        return parseFloat(seconds.toFixed(1));
+      }
+
+      return Math.floor(seconds);
+    }
+  },
+  render: function render(createElement) {
+    var _this = this;
+
+    var preprocess = function preprocess(value) {
+      return _this.leadingZero && value < 10 ? "0".concat(value) : value;
+    };
+
+    return createElement(this.tag, this.$scopedSlots.default ? [this.$scopedSlots.default({
+      days: preprocess(this.days),
+      hours: preprocess(this.hours),
+      minutes: preprocess(this.minutes),
+      seconds: preprocess(this.seconds),
+      totalDays: preprocess(this.totalDays),
+      totalHours: preprocess(this.totalHours),
+      totalMinutes: preprocess(this.totalMinutes),
+      totalSeconds: preprocess(this.totalSeconds)
+    })] : this.$slots.default);
+  },
+  methods: {
+    /**
+     * Initialize count.
+     */
+    init: function init() {
+      var _this2 = this;
+
+      var time = this.time;
+
+      if (time > 0) {
+        this.count = time;
+        this.endTime = this.now() + time;
+
+        if (this.autoStart) {
+          this.$nextTick(function () {
+            _this2.start();
+          });
+        }
+      }
+    },
+
+    /**
+     * Start to countdown.
+     * @public
+     * @emits Countdown#countdownstart
+     */
+    start: function start() {
+      if (this.counting) {
+        return;
+      }
+
+      if (this.emitEvents) {
+        /**
+         * Countdown start event.
+         * @event Countdown#countdownstart
+         */
+        this.$emit('countdownstart');
+      }
+
+      this.counting = true;
+      this.next();
+    },
+
+    /**
+     * Pause countdown.
+     * @public
+     * @emits Countdown#countdownpause
+     */
+    pause: function pause() {
+      if (!this.counting) {
+        return;
+      }
+
+      if (this.emitEvents) {
+        /**
+         * Countdown pause event.
+         * @event Countdown#countdownpause
+         */
+        this.$emit('countdownpause');
+      }
+
+      this.counting = false;
+      clearTimeout(this.timeout);
+    },
+
+    /**
+     * Next countdown queue.
+     * @private
+     */
+    next: function next() {
+      this.timeout = setTimeout(this.step.bind(this), this.interval);
+    },
+
+    /**
+     * Step to countdown.
+     * @private
+     * @emits Countdown#countdownprogress
+     */
+    step: function step() {
+      if (!this.counting) {
+        return;
+      }
+
+      if (this.count > this.interval) {
+        this.count -= this.interval;
+
+        if (this.emitEvents && this.count > 0) {
+          /**
+           * Countdown progress event.
+           * @event Countdown#countdownprogress
+           */
+          this.$emit('countdownprogress', {
+            days: this.days,
+            hours: this.hours,
+            minutes: this.minutes,
+            seconds: this.seconds,
+            totalDays: this.totalDays,
+            totalHours: this.totalHours,
+            totalMinutes: this.totalMinutes,
+            totalSeconds: this.totalSeconds
+          });
+        }
+
+        this.next();
+      } else {
+        this.count = 0;
+        this.stop();
+      }
+    },
+
+    /**
+     * Stop the countdown.
+     * @public
+     * @emits Countdown#countdownend
+     */
+    stop: function stop() {
+      this.counting = false;
+      clearTimeout(this.timeout);
+      this.timeout = undefined;
+
+      if (this.emitEvents) {
+        /**
+         * Countdown end event.
+         * @event Countdown#countdownend
+         */
+        this.$emit('countdownend');
+      }
+    },
+
+    /**
+     * Update the count.
+     * @private
+     */
+    update: function update() {
+      if (this.counting) {
+        this.count = Math.max(0, this.endTime - this.now());
+      }
+    }
+  },
+  watch: {
+    time: function time() {
+      this.init();
+    }
+  },
+  created: function created() {
+    this.init();
+  },
+  mounted: function mounted() {
+    window.addEventListener('focus', this.onFocus = this.update.bind(this));
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.removeEventListener('focus', this.onFocus);
+    clearTimeout(this.timeout);
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
+
+/***/ }),
+/* 50 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

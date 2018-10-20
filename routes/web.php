@@ -12,13 +12,18 @@
 */
 
 Route::get('/quiz/{id?}', 'QuizController@index')->name('quiz.index');
-Route::get('/quiz/{id}/exam', 'QuizController@exam')->name('quiz.exam');
-Route::post('/quiz/{id}/exam/{paper_id}', 'QuizController@quiz_check')->name('quiz.answer');
+// Основное тестирование(на время + протокол)
+Route::get('/quiz/{id}/exam', 'QuizController@exam')->name('exam.quiz');
+Route::post('/quiz/{id}/exam/{paper_id}', 'QuizController@exam_check')->name('exam.answer');
+// Пробное тестирование
+Route::get('/quiz/{id}/try', 'QuizController@try')->name('try.quiz');
+Route::post('/quiz/{id}/try/{paper_id}', 'QuizController@try_check')->name('try.answer');
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
   Route::get('/', 'DashboardController@index')->name('admin.index');
   Route::resource('/category', 'CategoryController', ['as'=>'admin']);
   Route::resource('/question', 'QuestionController', ['as'=>'admin']);
+  Route::post('/question/mass', 'QuestionController@mass_store', ['as'=>'admin'])->name('admin.question.mass_store');
   Route::resource('/paper', 'PaperController', ['as'=>'admin']);
   Route::group(['prefix'=>'user_management', 'namespace'=>'UserManagement'], function(){
     Route::resource('/user', 'UserController', ['as'=>'admin.user_management']);

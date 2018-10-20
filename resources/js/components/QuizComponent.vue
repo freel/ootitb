@@ -1,21 +1,13 @@
 <template>
   <div class="exam">
-    <paginate
-    v-model="page"
-    :pageCount="pages"
-    :clickHandler="openPage"
-    :prevText="'Prev'"
-    :nextText="'Next'"
-    :containerClass="'pagination'"
-    :page-class="'page-item'"
-    :page-link-class="'page-link'"
-    :prev-link-class="'page-link'"
-    :next-link-class="'page-link'">
-  </paginate>
+    <div v-if="timer">
+      <countdown @countdownend="formSubmit" :time="timer * 60 * 1000">
+        <template slot-scope="props">{{ props.minutes }}:{{ props.seconds }}</template>
+      </countdown>
+    </div>
     <form>
         <keep-alive>
           <div class="jumbotron">
-            <!-- <component :is="quizComponent.component" :name="quizComponent.name" v-bind:question="quizComponent.question"></component> -->
             <h5>{{ question.text }}</h5>
             <answer-component
               v-model="answered"
@@ -25,9 +17,19 @@
             </answer-component>
           </div>
         </keep-alive>
-        <!-- <pagination-component
-        v-bind:pages="pages">
-        </pagination-component> -->
+        <paginate
+          v-model="page"
+          :pageCount="pages"
+          :page-range="pages"
+          :prevText="'Предыдущий'"
+          :nextText="'Следующий'"
+          :containerClass="'pagination'"
+          :page-class="'page-item'"
+          :page-link-class="'page-link'"
+          :prev-link-class="'page-link'"
+          :hide-prev-next="true"
+          :next-link-class="'page-link'">
+        </paginate>
         <input class="btn btn-primary" type="button" @click="formSubmit" value="Ответить">
     </form>
 
@@ -52,7 +54,10 @@
           type: Number,
           default: 0,
         },
-        action:{}
+        action:{},
+        timer:{
+          default: 30,
+        }
       },
       computed: {
         pages: function() {
@@ -61,27 +66,11 @@
         question: function() {
           return this.questions[this.page-1]
         },
-        // quizComponent: function() {
-        //     return {
-        //         component: 'quiz-component',
-        //         name: 'quiz-component-'+this.current,
-        //         id: this.current,
-        //         question: this.questions[this.current]
-        //     }
-        // },
       },
       methods: {
-        openPage(page) {
-          console.log(page);
-        },
-        // answered: function(e){
-        //   console.log(e);
-        // },
         formSubmit: function() {
           this.$http.post(this.action, {"answers":this.answered})
           .then((response) => {
-            // console.log(response.body);
-            // window.location = response.url;
             document.write(response.body)
           })
         },

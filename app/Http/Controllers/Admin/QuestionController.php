@@ -132,4 +132,14 @@ class QuestionController extends Controller
     {
         //
     }
+
+    /**
+     * Store a mass created resources in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function mass_store(Request $request){
+      return dd($request->fileToUpload);
+    }
 }
