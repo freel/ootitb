@@ -27,28 +27,103 @@ class QuizController extends Controller
         ]);
     }
 
-    public function exam($id){
-        $papers = Category::with(['papers' => function($query) {
-            $query
-              ->select('id', 'paper_index', 'category_id');
-          }])
-          ->where('id', $id)
-          ->first()
-          ->papers;
-        $paper = $papers[rand(0, $papers->count()-1)];
-        $questions = $paper
-          ->questions()
-          ->select('questions.id', 'title', 'text')
+    /** Данные тестирования
+    * @var $id - выбранная пользователем категория вопросов
+    * @var $papers - билеты в этой категории
+    * @var $paper - случайный билет // TODO: выбор номера или случайный(поестить в try_quiz)
+    * @var $questions - коллекция вопросов с ответами
+    */
+    private function get_quiz($id){
+      Category::where('id', $id)
+        ->first()
+        ->papers->count() ? $questions = $this->get_paper($id) : $questions = $this->get_rand_paper($id);
+      // return dd($papers_count);
+      // if ($papers_count)
+
+
+        return $questions + [
+            'category' => $id,
+          ];
+    }
+
+    private function get_paper($id){
+      $papers = Category::with(['papers' => function($query) {
+          $query
+            ->select('id', 'paper_index', 'category_id');
+        }])
+        ->where('id', $id)
+        ->first()
+        ->papers;
+      $paper = $papers[rand(0, $papers->count()-1)];
+      $questions = $paper
+        ->questions()
+        ->select('questions.id', 'title', 'text')
+        ->with(['answers' => function($query){
+          $query->select('id', 'question_id', 'text');
+        }])
+        ->get();
+        // return dd($paper);
+        return [
+          'paper' => $paper,
+          'questions' => $questions
+        ];
+    }
+
+    private function get_rand_paper($id){
+      $category = Category::where('id', $id)
+        ->with(['questions' => function($query){
+          $query->select('questions.id', 'title', 'text')
           ->with(['answers' => function($query){
             $query->select('id', 'question_id', 'text');
-          }])
-          ->get();
-        return view('quiz.exam', [
-            'category' => $id,
-            'paper' => $paper,
-            'questions' => $questions,
-            'timer' => 0.2,
-          ]);
+          }]);
+        }])
+        ->first();
+        $questions = $category['questions']->random(20);
+        $paper = collect([
+          'id' => '0',
+          'paper_index' => 'random',
+          'category' => $id
+        ]);
+        $retval = [
+          'paper' => $paper,
+          'questions' => $questions
+        ];
+        session()->put($retval);
+        // return dd($paper);
+        return $retval;
+    }
+
+    /** Пробное тестирование
+    * @var $id - выбранная пользователем категория вопросов
+    * // TODO: выбор номера или случайный
+    * @return страницу с пробным тестом + параметры
+    */
+    public function try_quiz($id){
+      // return $this->get_rand_paper($id);
+        return view('quiz.exam',
+            $this->get_quiz($id)
+          );
+    }
+
+    /** Экзаменационное тестирование
+    * @var $id - выбранная пользователем категория вопросов
+    * @var $timer - время на тестирование в секундах
+    * @return страницу с пробным тестом + параметры
+    */
+    public function exam_quiz($id){
+        $timer = 0.2;
+        return view('quiz.exam',
+            $this->get_quiz($id) +
+            ['timer' => $timer,]
+          );
+    }
+
+    public function exam_quiz_check(Request $request, $category_id, $paper_id){
+      return $this->quiz_check($request, $category_id, $paper_id);
+    }
+
+    public function try_quiz_check(Request $request, $category_id, $paper_id){
+      return $this->quiz_check($request, $category_id, $paper_id);
     }
 
     /** Проверка результата экзаменационного тестирования
@@ -56,18 +131,25 @@ class QuizController extends Controller
     * @var $paper_id - номер билета
     * @var $paper - билет по индексу
     * @var $questions - коллекция вопросов с ответами
+    *
+    * @return
     */
-    public function exam_check(Request $request, $category_id, $paper_id){
-      $papers = Category::with('papers')
-        ->where('id', $category_id)
-        ->first()
-        ->papers;
-      $paper = $papers[$paper_id-1];
-      $questions = $paper->questions()
-        ->with(['answers' => function($query){
-          $query->select('id', 'question_id', 'text', 'right');
-        }])
-        ->get();
+    public function quiz_check(Request $request, $category_id, $paper_id){
+      if (!$paper_id) {
+        $paper = 0;
+        $questions = session()->get('paper');
+      }else{
+        $papers = Category::with('papers')
+          ->where('id', $category_id)
+          ->first()
+          ->papers;
+        $paper = $papers[$paper_id-1];
+        $questions = $paper->questions()
+          ->with(['answers' => function($query){
+            $query->select('id', 'question_id', 'text', 'right');
+          }])
+          ->get();
+      }
       $user_answers = $this->quizArrayMerge($request->answers);
       // foreach ($user_answers as $user_answer){
 
@@ -98,7 +180,6 @@ class QuizController extends Controller
             ]);
 
         }
-        // return dd( $question->answers);
         if ($wrong_answers){
           $mistakes[] = (object)[
             'question'=>$question,
@@ -108,7 +189,6 @@ class QuizController extends Controller
 
         }
       }
-      // return dd($mistakes);
       $result = [
         'paper' => $paper,
         'questions_count'=>$questions->count(),

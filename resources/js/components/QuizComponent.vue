@@ -55,9 +55,7 @@
           default: 0,
         },
         action:{},
-        timer:{
-          default: 30,
-        }
+        timer:{}
       },
       computed: {
         pages: function() {

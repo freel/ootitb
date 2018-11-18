@@ -2,11 +2,11 @@
 
 @section('content')
   <div class="container">
-    <h4>Билет №{{$paper->id}}</h4>
+    <h4>Билет №{{$paper['id']}}</h4>
     <hr>
       <quiz-component
-        action='{{route('exam.answer', ['id' => $category, 'paper_id' => $paper ]) }}'
-        :questions='{!! json_encode($questions) !!}'
+        action='{{route('exam.answer', ['id' => $category, 'paper_id' => $paper["id"] ]) }}'
+        :questions='{{ json_encode($questions) }}'
         @isset($timer)
           :timer={{$timer}}
         @endisset

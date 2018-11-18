@@ -10,7 +10,7 @@
     @forelse ($data as $data_row)
       <tr>
         @foreach ($head as $header_key=>$header_td)
-          @if (is_array($data_row[$header_key]))
+          @if ($data_row[$header_key] instanceof Illuminate\Database\Eloquent\Collection)
             <td>{{$data_row[$header_key]->pluck('title')->implode(', ')}}</td>
           @else
             <td>{{$data_row[$header_key]}}</td>

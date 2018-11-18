@@ -48977,9 +48977,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       default: 0
     },
     action: {},
-    timer: {
-      default: 30
-    }
+    timer: {}
   },
   computed: {
     pages: function pages() {

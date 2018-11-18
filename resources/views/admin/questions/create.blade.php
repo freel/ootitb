@@ -13,18 +13,23 @@
 
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="once" role="tabpanel" aria-labelledby="home-tab">
-      <form class="" action="{{route('admin.question.store')}}" method="post">
+      <form action="{{route('admin.question.store')}}" method="post">
         {{csrf_field()}}
         {{-- Form include --}}
         @include('admin.questions.partials.form')
       </form>
     </div>
     <div class="tab-pane fade" id="mass" role="tabpanel" aria-labelledby="mass-tab">
-      @component('admin.components.file')
+      {{-- @component('admin.components.file')
           @slot('action')
             {{ route('admin.question.mass_store') }}
           @endslot
-      @endcomponent
+      @endcomponent --}}
+      <form action="{{route('admin.question.mass_store')}}" method="post" enctype="multipart/form-data">
+        {{csrf_field()}}
+        {{-- Form include --}}
+        @include('admin.questions.partials.file')
+      </form>
     </div>
   </div>
 </div>
