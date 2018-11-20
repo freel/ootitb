@@ -15,7 +15,7 @@ Route::get('/quiz/{id?}', 'QuizController@index')->name('quiz.index');
 // Основное тестирование(на время + протокол)
 Route::get('/quiz/{id}/exam', 'QuizController@exam_quiz')->name('exam.quiz');
 Route::post('/quiz/{id}/exam/{paper_id}', 'QuizController@exam_quiz_check')->name('exam.answer');
-// Пробное тестирование
+// Пробное тестирование(без времени)
 Route::get('/quiz/{id}/try', 'QuizController@try_quiz')->name('try.quiz');
 Route::post('/quiz/{id}/try/{paper_id}', 'QuizController@try_quiz_heck')->name('try.answer');
 
